@@ -3,25 +3,64 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* planos */
+  --bg: #f8efe9;
+  --surface: #fffdfb;
+  /* tinta */
+  --ink: #1c2417;
+  --ink-2: #5b6355;
+  --ink-3: #8a9083;
+  /* série (paleta categórica validada — ordem fixa, nunca ciclar) */
+  --s1: #2f9e0e; /* verde */
+  --s2: #a94fd1; /* lilás */
+  --s3: #d97708; /* laranja */
+  --s4: #c9407a; /* magenta */
+  /* chrome de gráfico */
+  --grid: #ece2d9;
+  --axis: #d8ccc1;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-feature-settings: "ss01";
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+::selection {
+  background: #dff3d6;
+  color: #145c04;
+}
+
+/* números que precisam alinhar em coluna (tabelas, ticks) */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* scrollbar discreta para trilhos horizontais no mobile */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #d8ccc1 transparent;
+}
+.scroll-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #d8ccc1;
+  border-radius: 999px;
+}
+
+/* recharts: tipografia e chrome recessivo */
+.recharts-cartesian-axis-tick text {
+  fill: var(--ink-3);
+  font-size: 11px;
+}
+.recharts-cartesian-grid line {
+  stroke: var(--grid);
+}
+.recharts-tooltip-cursor {
+  fill: rgba(28, 36, 23, 0.04);
 }
