@@ -20,6 +20,8 @@ const NAV = [
       </svg>
     ),
   },
+  /* Segmentação oculta até segunda ordem — para restaurar, descomente este
+     bloco e remova o redirect em next.config.mjs.
   {
     href: "/painel/segmentacao",
     label: "Segmentação",
@@ -32,6 +34,7 @@ const NAV = [
       </svg>
     ),
   },
+  */
   {
     href: "/painel/criativos",
     label: "Criativos",
