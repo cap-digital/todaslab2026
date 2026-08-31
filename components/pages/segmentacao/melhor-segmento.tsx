@@ -54,14 +54,14 @@ export function MelhorSegmento({ rows }: { rows: Row[] }) {
                 className={lider ? "rounded-2xl bg-green-wash p-3 md:p-3.5" : "px-0.5"}
               >
                 <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-                  <span className="inline-flex items-center gap-2">
-                    <span className="w-5 text-sm font-bold text-ink-3">{i + 1}º</span>
+                  <span className="inline-flex min-w-0 flex-wrap items-center gap-2">
+                    <span className="w-5 shrink-0 text-sm font-bold text-ink-3">{i + 1}º</span>
                     <span
                       className="h-2 w-2 shrink-0 rounded-full"
                       style={{ background: corGenero(s.gender) }}
                       aria-hidden
                     />
-                    <span className={`font-bold text-ink ${lider ? "text-base" : "text-sm"}`}>
+                    <span className={`min-w-0 break-words font-bold text-ink ${lider ? "text-base" : "text-sm"}`}>
                       {GENDER_LABEL[s.gender] ?? s.gender} · {s.age === "unknown" ? "idade n/i" : `${s.age} anos`}
                     </span>
                     {lider ? <Chip tone="green">líder</Chip> : null}

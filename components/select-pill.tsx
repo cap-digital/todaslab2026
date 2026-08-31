@@ -55,7 +55,7 @@ export function SelectPill({
       </button>
 
       {open ? (
-        <div className="absolute left-0 z-50 mt-2 w-max min-w-full max-w-[min(280px,calc(100vw-2rem))] rounded-3xl bg-surface p-2 shadow-pop ring-1 ring-ink/10">
+        <div className="fixed inset-x-4 z-50 mt-2 rounded-3xl bg-surface p-2 shadow-pop ring-1 ring-ink/10 sm:absolute sm:left-0 sm:right-auto sm:w-max sm:min-w-full sm:max-w-[min(280px,calc(100vw-2rem))]">
           <ul role="listbox" aria-label={label}>
             {options.map((o) => {
               const selected = o.value === value;

@@ -97,13 +97,15 @@ export function HeroAd({ ad }: { ad: AdSummary }) {
             {stats.map((s) => (
               <div key={s.label}>
                 <p
-                  className={`flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider ${
+                  className={`flex flex-wrap items-center gap-1 text-[11px] font-semibold uppercase tracking-wider ${
                     s.contratada ? "text-orange-bright" : "text-white/60"
                   }`}
                 >
-                  {s.contratada ? <Sparkle className="h-3 w-3" aria-hidden /> : null}
-                  {s.label}
-                  {s.contratada ? " · contratada" : ""}
+                  {s.contratada ? <Sparkle className="h-3 w-3 shrink-0" aria-hidden /> : null}
+                  <span className="min-w-0">
+                    {s.label}
+                    {s.contratada ? " · contratada" : ""}
+                  </span>
                 </p>
                 <p className="mt-1.5 font-sans text-xl font-bold leading-none tracking-tight text-white md:text-2xl">
                   {s.value}

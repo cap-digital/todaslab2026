@@ -55,7 +55,7 @@ export function DatePicker() {
       </button>
 
       {open ? (
-        <div className="absolute left-0 right-auto z-50 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-3xl bg-surface p-2 shadow-pop ring-1 ring-ink/10 sm:left-auto sm:right-0">
+        <div className="fixed inset-x-4 z-50 mt-2 rounded-3xl bg-surface p-2 shadow-pop ring-1 ring-ink/10 sm:absolute sm:left-auto sm:right-0 sm:w-72">
           <ul role="listbox" aria-label="Período">
             {PRESETS.map((p) => {
               const selected = range.preset === p;
