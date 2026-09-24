@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { aplicarContrato, type AjusteContrato } from "./contrato";
 import type { DataStatus, Row } from "./types";
 
 /* ---------- parsing ---------- */
@@ -81,11 +82,14 @@ export function parseRows(raw: unknown): Row[] {
 /* ---------- provider ---------- */
 
 type DataContextValue = {
+  /** linhas com o investimento já ajustado ao contrato (ver lib/contrato.ts) */
   rows: Row[];
   status: DataStatus;
   /** timestamp da resposta da função (ISO) */
   updatedAt: string | null;
   error: string | null;
+  /** resumo da transferência de excedente entre ciclos */
+  ajuste: AjusteContrato | null;
   refresh: () => void;
 };
 
@@ -96,6 +100,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<DataStatus>("loading");
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [ajuste, setAjuste] = useState<AjusteContrato | null>(null);
   const inflight = useRef(false);
 
   const load = useCallback(async () => {
@@ -108,7 +113,9 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       const res = await fetch("/api/data", { cache: "no-store" });
       if (!res.ok) throw new Error(`Falha ao carregar (${res.status})`);
       const json = await res.json();
-      setRows(parseRows(json));
+      const contrato = aplicarContrato(parseRows(json));
+      setRows(contrato.rows);
+      setAjuste(contrato.ajuste);
       setUpdatedAt(
         typeof json?.timestamp === "string" ? json.timestamp : new Date().toISOString()
       );
@@ -127,8 +134,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   }, [load]);
 
   const value = useMemo(
-    () => ({ rows, status, updatedAt, error, refresh: load }),
-    [rows, status, updatedAt, error, load]
+    () => ({ rows, status, updatedAt, error, ajuste, refresh: load }),
+    [rows, status, updatedAt, error, ajuste, load]
   );
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
