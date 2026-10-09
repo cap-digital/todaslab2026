@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { PanelHeader } from "@/components/painel-chrome";
-import { Card, CardTitle, EmptyState, PageHeader } from "@/components/ui";
+import { Card, CardTitle, EmptyState, PageHeader, VerMais } from "@/components/ui";
 import { byAd } from "@/lib/aggregate";
 import { useFilters } from "@/lib/filters";
 import { HeroAd } from "@/components/pages/criativos/hero-ad";
@@ -14,9 +14,13 @@ import {
 } from "@/components/pages/criativos/sort-bar";
 import { CompareTable } from "@/components/pages/criativos/compare-table";
 
+/** Cards visíveis na galeria antes do "ver mais". */
+const GALERIA_LIMITE = 9;
+
 export default function CriativosPage() {
   const { rows } = useFilters();
   const [sortKey, setSortKey] = useState<SortKey>("impressions");
+  const [galeriaAberta, setGaleriaAberta] = useState(false);
 
   const ads = useMemo(() => byAd(rows), [rows]);
 
@@ -39,7 +43,8 @@ export default function CriativosPage() {
     "impressões";
   const countLabel =
     ads.length === 1 ? "1 anúncio no recorte" : `${ads.length} anúncios no recorte`;
-  const tableDelay = Math.min(140 + sorted.length * 70, 560);
+  const galeria = galeriaAberta ? sorted : sorted.slice(0, GALERIA_LIMITE);
+  const tableDelay = Math.min(140 + galeria.length * 70, 560);
 
   return (
     <div className="flex flex-col gap-3 md:gap-4">
@@ -71,7 +76,7 @@ export default function CriativosPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 xl:grid-cols-3">
-            {sorted.map((ad, i) => (
+            {galeria.map((ad, i) => (
               <div
                 key={ad.adName}
                 className="animate-rise"
@@ -81,6 +86,13 @@ export default function CriativosPage() {
               </div>
             ))}
           </div>
+          {sorted.length > GALERIA_LIMITE ? (
+            <VerMais
+              restantes={sorted.length - GALERIA_LIMITE}
+              expandido={galeriaAberta}
+              onToggle={() => setGaleriaAberta((v) => !v)}
+            />
+          ) : null}
 
           <div
             className="animate-rise"

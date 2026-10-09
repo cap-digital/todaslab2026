@@ -233,14 +233,44 @@ export function Legend({
 
 /* ---------- alternador gráfico ⇄ tabela (a tabela é o par acessível) ---------- */
 
+/** Botão "ver mais / ver menos" para listas truncadas. */
+export function VerMais({
+  restantes,
+  expandido,
+  onToggle,
+}: {
+  restantes: number;
+  expandido: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="mt-3 flex justify-center">
+      <button
+        type="button"
+        aria-expanded={expandido}
+        onClick={onToggle}
+        className="rounded-full bg-sunken px-4 py-1.5 text-xs font-bold text-ink-2 transition hover:text-ink"
+      >
+        {expandido ? "ver menos" : `ver mais (${restantes})`}
+      </button>
+    </div>
+  );
+}
+
 export function TableToggle({
   chart,
   table,
+  limit,
 }: {
   chart: React.ReactNode;
   table: { columns: string[]; rows: Array<Array<string | number>> };
+  /** máximo de linhas visíveis antes do "ver mais" (sem limite quando omitido) */
+  limit?: number;
 }) {
   const [showTable, setShowTable] = useState(false);
+  const [expandido, setExpandido] = useState(false);
+  const truncar = limit != null && table.rows.length > limit;
+  const linhas = truncar && !expandido ? table.rows.slice(0, limit) : table.rows;
   return (
     <div>
       <div className="mb-2 flex justify-end">
@@ -265,7 +295,7 @@ export function TableToggle({
               </tr>
             </thead>
             <tbody>
-              {table.rows.map((r, i) => (
+              {linhas.map((r, i) => (
                 <tr key={i} className="border-b border-grid/60 last:border-0">
                   {r.map((cell, j) => (
                     <td key={j} className={`py-2 pr-4 ${j === 0 ? "font-semibold text-ink" : "tnum text-ink-2"}`}>
@@ -276,6 +306,13 @@ export function TableToggle({
               ))}
             </tbody>
           </table>
+          {truncar ? (
+            <VerMais
+              restantes={table.rows.length - (limit ?? 0)}
+              expandido={expandido}
+              onToggle={() => setExpandido((v) => !v)}
+            />
+          ) : null}
         </div>
       ) : (
         chart

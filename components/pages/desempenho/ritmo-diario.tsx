@@ -248,6 +248,7 @@ export function RitmoDiario({ rows }: { rows: Row[] }) {
               </div>
             </div>
           }
+          limit={10}
           table={{
             columns: ["Dia", "Investimento", "Impressões", "Cliques", "Engajamento"],
             rows: days.map((d) => [

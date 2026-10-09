@@ -6,7 +6,7 @@ export type MetricKind = "engajamento" | "impressoes" | "cliques";
 export const METRIC_LABEL: Record<MetricKind, string> = {
   engajamento: "Engajamento",
   impressoes: "Impressões",
-  cliques: "Cliques",
+  cliques: "Cliques no link",
 };
 
 /** Sigla do custo unitário que cada métrica compra. */
@@ -100,7 +100,7 @@ export function deliveredFor(rows: Row[], metric: MetricKind): number {
   for (const r of rows) {
     if (metric === "engajamento") s += r.engagement;
     else if (metric === "impressoes") s += r.impressions;
-    else s += r.clicks;
+    else s += r.linkClicks;
   }
   return s;
 }
