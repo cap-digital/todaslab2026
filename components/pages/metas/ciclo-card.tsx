@@ -78,7 +78,7 @@ function CustoContratadoRealizado({ e }: { e: EstrategiaProgress }) {
 
 /**
  * Um ciclo do contrato: investimento no cabeçalho + uma linha de entrega por
- * estratégia. Aftermovies (estratégia única) ganha o tom lilás.
+ * estratégia. O Ciclo 5 (estratégia única, Alcance) ganha o tom lilás.
  */
 export function CicloCard({
   ciclo,

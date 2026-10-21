@@ -7,7 +7,7 @@ import { Card, Chip, Flower, Meter, StatValue } from "@/components/ui";
 
 /**
  * Card-herói do contrato: total investido acumulado sobre os R$ 15.000
- * contratados + trilha dos 5 blocos (Ciclos 1–4 e Aftermovies).
+ * contratados + trilha dos 5 blocos (Ciclos 1–5).
  */
 export function ContractHero({ progress }: { progress: CicloProgress[] }) {
   const investido = progress.reduce((s, c) => s + c.investido, 0);
@@ -42,7 +42,7 @@ export function ContractHero({ progress }: { progress: CicloProgress[] }) {
           />
         </div>
 
-        {/* trilha da jornada: Ciclo 1 → 4 → Aftermovies */}
+        {/* trilha da jornada: Ciclo 1 → 5 */}
         <div className="relative mt-4 flex flex-wrap gap-2">
           {progress.map((c) => (
             <div

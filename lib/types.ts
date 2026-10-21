@@ -28,7 +28,7 @@ export type Row = {
   videoP75: number;
   videoP95: number;
   videoP100: number;
-  /** "Ciclo 1" ... "Ciclo 4" | "Aftermovies" (como vier da base) */
+  /** "Ciclo 1" ... "Ciclo 5" (como vier da base) */
   ciclo: string;
   /** "Engajamento" | "Alcance" | "Tráfego" | "Tráfego - Lookalike" (como vier da base) */
   estrategia: string;

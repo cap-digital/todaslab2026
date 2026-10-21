@@ -52,9 +52,9 @@ export const METAS: CicloMeta[] = [
   { ciclo: "Ciclo 3", valor: 3500, estrategias: CICLO_PADRAO },
   { ciclo: "Ciclo 4", valor: 3500, estrategias: CICLO_PADRAO },
   {
-    ciclo: "Aftermovies",
+    ciclo: "Ciclo 5",
     valor: 1000,
-    estrategias: [{ nome: "Engajamento", investimento: 1000, metric: "engajamento", meta: 1111 }],
+    estrategias: [{ nome: "Alcance", investimento: 1000, metric: "impressoes", meta: 86957 }],
   },
 ];
 
